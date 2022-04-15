@@ -20,8 +20,7 @@ public class AESProject {
         StringBuilder result = new StringBuilder();
         for (byte aByte : bytes) {
             result.append(String.format("%02x", aByte));
-            // upper case
-            // result.append(String.format("%02X", aByte));
+            
         }
         return result.toString();
     }
@@ -30,8 +29,7 @@ public class AESProject {
         StringBuilder result = new StringBuilder();
         for (int aByte : bytes) {
             result.append(String.format("%02x", aByte));
-            // upper case
-            // result.append(String.format("%02X", aByte));
+            
         }
         return result.toString();
     }
