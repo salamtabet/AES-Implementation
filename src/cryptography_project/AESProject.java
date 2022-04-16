@@ -58,6 +58,31 @@ public class AESProject {
         return result.toString();
     }
 
+    public static byte[][] hexToByte(String hex) {
+        byte[][] bytes = new byte[4][4];
+        int ind = 0;
+        for (int i = 0; i < 4; i++) {
+            ind = 0;
+            for (int j = 0; j < 4; j++) {
+                bytes[j][i] = (byte) ((Character.digit(hex.charAt(i * 8 + ind), 16) << 4)
+                        + Character.digit(hex.charAt(i * 8 + ind + 1), 16));
+                ind += 2;
+            }
+        }
+        return bytes;
+    }
+
+    public static byte[] hexToByte2(String hex, int size) {
+        byte[] bytes = new byte[size];
+        int ind = 0;
+        for (int i = 0; i < bytes.length; i++) {
+            bytes[i] = (byte) ((Character.digit(hex.charAt(ind), 16) << 4)
+                    + Character.digit(hex.charAt(ind + 1), 16));
+            ind += 2;
+        }
+        return bytes;
+    }
+
     public static void main(String[] args) {
         // TODO code application logic here
 

@@ -6,8 +6,12 @@
 package cryptography_project;
 
 import static cryptography_project.AESProject.hex;
+import static cryptography_project.AESProject.hexToByte;
+import static cryptography_project.AESProject.hexToByte2;
 import java.util.ArrayList;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -15,12 +19,78 @@ import javax.swing.JTextField;
  */
 public class Home extends javax.swing.JFrame {
 
+    private ArrayList<byte[][]> cipherArray;
+    private String subkey;
+    private int subkeys[];
+    private final int subkeySize = 16 * 2;
+
     /**
      * Creates new form Home
      */
     public Home() {
         initComponents();
+        messageTextField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateCounter();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateCounter();
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateCounter();
+            }
+            
+            public void updateCounter() {
+                messageCounterLabel.setText(messageTextField.getText().trim().length() + " characters");
+            }
+        });
         
+        keyTextField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateCounter();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateCounter();
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateCounter();
+            }
+            
+            public void updateCounter() {
+                keyCounterLabel.setText(keyTextField.getText().trim().length() + " characters");
+            }
+        });
+        
+        cipherTextField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateCounter();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateCounter();
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateCounter();
+            }
+            
+            public void updateCounter() {
+                cipherCounterLabel.setText(cipherTextField.getText().trim().length() + " characters");
+            }
+        });
     }
 
     /**
@@ -34,9 +104,9 @@ public class Home extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        roundTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        proceedButton = new javax.swing.JButton();
         S01 = new javax.swing.JTextField();
         S00 = new javax.swing.JTextField();
         S02 = new javax.swing.JTextField();
@@ -71,6 +141,11 @@ public class Home extends javax.swing.JFrame {
         K32 = new javax.swing.JTextField();
         K31 = new javax.swing.JTextField();
         K30 = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        cipherTextField = new javax.swing.JTextField();
+        decryptButton = new javax.swing.JButton();
+        cipherWarningLabel = new javax.swing.JLabel();
+        cipherCounterLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         messageTextField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -79,6 +154,11 @@ public class Home extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        randomButton = new javax.swing.JButton();
+        keyWarningLabel = new javax.swing.JLabel();
+        messageWarningLabel = new javax.swing.JLabel();
+        messageCounterLabel = new javax.swing.JLabel();
+        keyCounterLabel = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -88,15 +168,20 @@ public class Home extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel4.setText("Output");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        roundTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                roundTextFieldActionPerformed(evt);
             }
         });
 
         jLabel2.setText("Enter a round:");
 
-        jButton2.setText("Proceed");
+        proceedButton.setText("Proceed");
+        proceedButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                proceedButtonActionPerformed(evt);
+            }
+        });
 
         S01.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -296,104 +381,147 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setText("Ciphertext:");
+
+        cipherTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cipherTextFieldActionPerformed(evt);
+            }
+        });
+
+        decryptButton.setText("Decrypt");
+        decryptButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                decryptButtonActionPerformed(evt);
+            }
+        });
+
+        cipherWarningLabel.setForeground(new java.awt.Color(255, 51, 51));
+        cipherWarningLabel.setText("              ");
+
+        cipherCounterLabel.setText("              ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 298, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(54, 54, 54)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addComponent(jButton2)
-                .addGap(34, 34, 34))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(152, 152, 152)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(S30, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(S31, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(S32, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(S33, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(S20, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(S21, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(S22, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(S23, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(S10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(S11, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(S12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(S13, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(S00, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(S01, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(S02, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(S03, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(101, 101, 101)
+                .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(K30, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(K31, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(K32, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(K33, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(160, 160, 160)
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(roundTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cipherWarningLabel)
+                                    .addComponent(cipherTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(proceedButton)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(cipherCounterLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                                .addComponent(decryptButton))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(K20, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(K21, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(K22, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(K23, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(K10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(K11, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(K12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(K13, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(K00, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(K01, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(K02, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(K03, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel7))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(131, 131, 131)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(S30, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(S31, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(S32, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(S33, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(S20, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(S21, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(S22, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(S23, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(S10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(S11, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(S12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(S13, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(S00, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(S01, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(S02, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(S03, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(101, 101, 101)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(K30, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(K31, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(K32, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(K33, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(K20, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(K21, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(K22, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(K23, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(K10, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(K11, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(K12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(K13, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(K00, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(K01, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(K02, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(K03, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel7))))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField1)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2))
-                    .addComponent(jLabel4))
-                .addGap(56, 56, 56)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(roundTextField)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(proceedButton))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cipherTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(decryptButton)
+                    .addComponent(cipherCounterLabel))
+                .addGap(11, 11, 11)
+                .addComponent(cipherWarningLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
@@ -447,7 +575,7 @@ public class Home extends javax.swing.JFrame {
                             .addComponent(K30, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                             .addComponent(K32, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                             .addComponent(K33, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))))
-                .addGap(32, 32, 32))
+                .addGap(19, 19, 19))
         );
 
         messageTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -477,6 +605,23 @@ public class Home extends javax.swing.JFrame {
 
         jLabel1.setText("Enter a message:");
 
+        randomButton.setText("Random");
+        randomButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                randomButtonActionPerformed(evt);
+            }
+        });
+
+        keyWarningLabel.setForeground(new java.awt.Color(255, 51, 51));
+        keyWarningLabel.setText("              ");
+
+        messageWarningLabel.setForeground(new java.awt.Color(255, 51, 51));
+        messageWarningLabel.setText("              ");
+
+        messageCounterLabel.setText("              ");
+
+        keyCounterLabel.setText("              ");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -485,44 +630,71 @@ public class Home extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(28, 28, 28)
-                        .addComponent(messageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(keyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(keyWarningLabel)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(keySizeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
-                                .addComponent(jButton1)))))
-                .addGap(57, 57, 57))
+                                .addComponent(keyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(keyCounterLabel)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                                        .addGap(39, 39, 39)
+                                        .addComponent(keySizeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(252, 252, 252))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(messageWarningLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(messageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(messageCounterLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(randomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(48, 48, 48))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(messageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3))
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(messageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(messageCounterLabel)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(randomButton)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(17, 17, 17))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(messageWarningLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(keySizeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))))
-                .addGap(17, 17, 17)
+                            .addComponent(jLabel3)
+                            .addComponent(keySizeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(keyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37))
+                    .addComponent(keyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(keyCounterLabel))
+                .addGap(12, 12, 12)
+                .addComponent(keyWarningLabel)
+                .addContainerGap())
         );
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -543,7 +715,7 @@ public class Home extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -552,7 +724,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addGap(1, 1, 1)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
@@ -560,83 +732,96 @@ public class Home extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void displayCipher(String cipher) {
+    public void displayCipher(int round) {
+        String cipher = hex(this.cipherArray.get(round));
         S00.setText(cipher.charAt(0) + "" + cipher.charAt(1));
         S10.setText(cipher.charAt(2) + "" + cipher.charAt(3));
         S20.setText(cipher.charAt(4) + "" + cipher.charAt(5));
         S30.setText(cipher.charAt(6) + "" + cipher.charAt(7));
-        
+
         S01.setText(cipher.charAt(8) + "" + cipher.charAt(9));
         S11.setText(cipher.charAt(10) + "" + cipher.charAt(11));
         S21.setText(cipher.charAt(12) + "" + cipher.charAt(13));
         S31.setText(cipher.charAt(14) + "" + cipher.charAt(15));
-        
+
         S02.setText(cipher.charAt(16) + "" + cipher.charAt(17));
         S12.setText(cipher.charAt(18) + "" + cipher.charAt(19));
         S22.setText(cipher.charAt(20) + "" + cipher.charAt(21));
         S32.setText(cipher.charAt(22) + "" + cipher.charAt(23));
-        
+
         S03.setText(cipher.charAt(24) + "" + cipher.charAt(25));
         S13.setText(cipher.charAt(26) + "" + cipher.charAt(27));
         S23.setText(cipher.charAt(28) + "" + cipher.charAt(29));
         S33.setText(cipher.charAt(30) + "" + cipher.charAt(31));
     }
-    
-    public void displaySubKey(int round, int size, String subkey) {
-        K00.setText(subkey.charAt(round*size + 0) + "" + subkey.charAt(round*size + 1));
-        K10.setText(subkey.charAt(round*size + 2) + "" + subkey.charAt(round*size + 3));
-        K20.setText(subkey.charAt(round*size + 4) + "" + subkey.charAt(round*size + 5));
-        K30.setText(subkey.charAt(round*size + 6) + "" + subkey.charAt(round*size + 7));
-        
-        K01.setText(subkey.charAt(round*size + 8) + "" + subkey.charAt(round*size + 9));
-        K11.setText(subkey.charAt(round*size + 10) + "" + subkey.charAt(round*size + 11));
-        K21.setText(subkey.charAt(round*size + 12) + "" + subkey.charAt(round*size + 13));
-        K31.setText(subkey.charAt(round*size + 14) + "" + subkey.charAt(round*size + 15));
-        
-        K02.setText(subkey.charAt(round*size + 16) + "" + subkey.charAt(round*size + 17));
-        K12.setText(subkey.charAt(round*size + 18) + "" + subkey.charAt(round*size + 19));
-        K22.setText(subkey.charAt(round*size + 20) + "" + subkey.charAt(round*size + 21));
-        K32.setText(subkey.charAt(round*size + 22) + "" + subkey.charAt(round*size + 23));
-        
-        K03.setText(subkey.charAt(round*size + 24) + "" + subkey.charAt(round*size + 25));
-        K13.setText(subkey.charAt(round*size + 26) + "" + subkey.charAt(round*size + 27));
-        K23.setText(subkey.charAt(round*size + 28) + "" + subkey.charAt(round*size + 29));
-        K33.setText(subkey.charAt(round*size + 30) + "" + subkey.charAt(round*size + 31));
+
+    public void displaySubKey(int round) {
+        K00.setText(subkey.charAt(round * subkeySize + 0) + "" + subkey.charAt(round * subkeySize + 1));
+        K10.setText(subkey.charAt(round * subkeySize + 2) + "" + subkey.charAt(round * subkeySize + 3));
+        K20.setText(subkey.charAt(round * subkeySize + 4) + "" + subkey.charAt(round * subkeySize + 5));
+        K30.setText(subkey.charAt(round * subkeySize + 6) + "" + subkey.charAt(round * subkeySize + 7));
+
+        K01.setText(subkey.charAt(round * subkeySize + 8) + "" + subkey.charAt(round * subkeySize + 9));
+        K11.setText(subkey.charAt(round * subkeySize + 10) + "" + subkey.charAt(round * subkeySize + 11));
+        K21.setText(subkey.charAt(round * subkeySize + 12) + "" + subkey.charAt(round * subkeySize + 13));
+        K31.setText(subkey.charAt(round * subkeySize + 14) + "" + subkey.charAt(round * subkeySize + 15));
+
+        K02.setText(subkey.charAt(round * subkeySize + 16) + "" + subkey.charAt(round * subkeySize + 17));
+        K12.setText(subkey.charAt(round * subkeySize + 18) + "" + subkey.charAt(round * subkeySize + 19));
+        K22.setText(subkey.charAt(round * subkeySize + 20) + "" + subkey.charAt(round * subkeySize + 21));
+        K32.setText(subkey.charAt(round * subkeySize + 22) + "" + subkey.charAt(round * subkeySize + 23));
+
+        K03.setText(subkey.charAt(round * subkeySize + 24) + "" + subkey.charAt(round * subkeySize + 25));
+        K13.setText(subkey.charAt(round * subkeySize + 26) + "" + subkey.charAt(round * subkeySize + 27));
+        K23.setText(subkey.charAt(round * subkeySize + 28) + "" + subkey.charAt(round * subkeySize + 29));
+        K33.setText(subkey.charAt(round * subkeySize + 30) + "" + subkey.charAt(round * subkeySize + 31));
     }
-    
+
+    private int getKey(AESAlgorithm aes) {
+        String inputKey = keyTextField.getText().trim();
+        int keySize = Integer.parseInt((String) keySizeCombo.getSelectedItem());
+        if (inputKey.equals("")) {
+            initializeKey();
+            inputKey = keyTextField.getText().trim();
+        } else if (inputKey.length() != keySize / 4) {
+            keyWarningLabel.setText("Key must be " + keySize / 4 + " characters.");
+            return 1;
+        }
+        keyWarningLabel.setText("   ");
+        byte key[] = hexToByte2(inputKey, keySize / 8);
+        this.subkeys = aes.createKeyExpansion(key);
+        this.subkey = hex(subkeys);
+        return 0;
+    }
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         String keySize = (String) keySizeCombo.getSelectedItem();
         AESAlgorithm aes = new AESAlgorithm(Integer.parseInt(keySize));
-        byte key[] = aes.createKey();
-        System.out.println(key.length);
-        keyTextField.setText(hex(key));
-        int subkeys[] = aes.createKeyExpansion(key);
-        String subkey = hex(subkeys);
-        System.out.println(subkeys.length);
-        System.out.println(subkey);
-        displaySubKey(10, 16*2, subkey);
-
-        byte bytesMessage[][] = {{(byte) 0x21, (byte) 0x7c, (byte) 0x12, (byte) 0x55},
-        {(byte) 0x21, (byte) 0x7c, (byte) 0x12, (byte) 0x55},
-        {(byte) 0x21, (byte) 0x7c, (byte) 0x12, (byte) 0x55},
-        {(byte) 0x21, (byte) 0x7c, (byte) 0x12, (byte) 0x55}
-        };
-        
-        messageTextField.setText(hex(bytesMessage));
-
-        ArrayList<byte[][]> a = aes.cipher(bytesMessage, subkeys);
-        
-        String cipher = hex(a.get(10));
-        System.out.println(cipher);
-        displayCipher(cipher);
-        ArrayList<byte[][]> b = aes.invCipher(a.get(10), subkeys);
-        System.out.println(hex(b.get(10)));
+        if (getKey(aes) == 1) {
+            return;
+        }
+        displaySubKey(10);
+        String message = messageTextField.getText().trim();
+        if (message.equals("")) {
+            initializeMessage();
+            message = messageTextField.getText().trim();
+        } else if (message.length() != 32) {
+            messageWarningLabel.setText("Message must be 32 characters.");
+            return;
+        }
+        messageWarningLabel.setText("   ");
+        byte bytes[][] = hexToByte(message);
+        this.cipherArray = aes.cipher(bytes, subkeys);
+        displayCipher(10);
+        cipherTextField.setText(hex(this.cipherArray.get(10)));
+        roundTextField.setText("10");
+        cipherWarningLabel.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void roundTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_roundTextFieldActionPerformed
 
     private void S01ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_S01ActionPerformed
         // TODO add your handling code here:
@@ -774,6 +959,71 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_keyTextFieldActionPerformed
 
+    private void proceedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proceedButtonActionPerformed
+        // TODO add your handling code here:
+        int round = Integer.parseInt(roundTextField.getText());
+        displayCipher(round);
+        displaySubKey(round);
+        cipherWarningLabel.setText("    ");
+        messageWarningLabel.setText("   ");
+    }//GEN-LAST:event_proceedButtonActionPerformed
+
+    public void initializeMessage() {
+        byte bytesMessage[][] = {{(byte) 0x21, (byte) 0x7c, (byte) 0x12, (byte) 0x55},
+        {(byte) 0x21, (byte) 0x7c, (byte) 0x12, (byte) 0x55},
+        {(byte) 0x21, (byte) 0x7c, (byte) 0x12, (byte) 0x55},
+        {(byte) 0x21, (byte) 0x7c, (byte) 0x12, (byte) 0x55}
+        };
+
+        messageTextField.setText(hex(bytesMessage));
+    }
+
+    public void initializeKey() {
+        String keySize = (String) keySizeCombo.getSelectedItem();
+        AESAlgorithm aes = new AESAlgorithm(Integer.parseInt(keySize));
+        byte key[] = aes.createKey();
+        keyTextField.setText(hex(key));
+        keyWarningLabel.setText("   ");
+    }
+
+    public void initialize() {
+        initializeMessage();
+        initializeKey();
+    }
+
+    private void randomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_randomButtonActionPerformed
+        // TODO add your handling code here:
+        initialize();
+        cipherWarningLabel.setText("    ");
+        messageWarningLabel.setText("   ");
+        keyWarningLabel.setText("   ");
+    }//GEN-LAST:event_randomButtonActionPerformed
+
+    private void cipherTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cipherTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cipherTextFieldActionPerformed
+
+    private void decryptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decryptButtonActionPerformed
+        // TODO add your handling code here:
+        String keySize = (String) keySizeCombo.getSelectedItem();
+        AESAlgorithm aes = new AESAlgorithm(Integer.parseInt(keySize));
+        keyWarningLabel.setText("   ");
+        getKey(aes);
+        String cipher = cipherTextField.getText().trim();
+        messageWarningLabel.setText("   ");
+        if (cipher.equals("")) {
+            cipherTextField.setText("71415b0a2ec38267230d1a7ecfa1fecc");
+            cipher = cipherTextField.getText().trim();
+        } else if (cipher.length() != 32) {
+            cipherWarningLabel.setText("Ciphertext must be 32 characters.");
+            return;
+        }
+        cipherWarningLabel.setText("    ");
+        ArrayList<byte[][]> b = aes.invCipher(hexToByte(cipher), subkeys);
+        roundTextField.setText("10");
+        messageTextField.setText(hex(b.get(10)));
+    }//GEN-LAST:event_decryptButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -791,13 +1041,17 @@ public class Home extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Home.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -807,6 +1061,8 @@ public class Home extends javax.swing.JFrame {
                 new Home().setVisible(true);
             }
         });
+
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -842,8 +1098,11 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextField S31;
     private javax.swing.JTextField S32;
     private javax.swing.JTextField S33;
+    private javax.swing.JLabel cipherCounterLabel;
+    private javax.swing.JTextField cipherTextField;
+    private javax.swing.JLabel cipherWarningLabel;
+    private javax.swing.JButton decryptButton;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -852,11 +1111,18 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel keyCounterLabel;
     private javax.swing.JComboBox<String> keySizeCombo;
     private javax.swing.JTextField keyTextField;
+    private javax.swing.JLabel keyWarningLabel;
+    private javax.swing.JLabel messageCounterLabel;
     private javax.swing.JTextField messageTextField;
+    private javax.swing.JLabel messageWarningLabel;
+    private javax.swing.JButton proceedButton;
+    private javax.swing.JButton randomButton;
+    private javax.swing.JTextField roundTextField;
     // End of variables declaration//GEN-END:variables
 }
