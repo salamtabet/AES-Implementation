@@ -20,34 +20,43 @@ public class AESProject {
         StringBuilder result = new StringBuilder();
         for (byte aByte : bytes) {
             result.append(String.format("%02x", aByte));
-            
+
         }
         return result.toString();
     }
-    
-    public static String hex(int[] bytes) {
+
+    public static byte[] intToByteArray(int value) {
+        return new byte[]{
+            (byte) (value >>> 24),
+            (byte) (value >>> 16),
+            (byte) (value >>> 8),
+            (byte) (value)
+        };
+    }
+
+    public static String hex(int[] ints) {
         StringBuilder result = new StringBuilder();
-        for (int aByte : bytes) {
-            result.append(String.format("%02x", aByte));
-            
+        for (int aint : ints) {
+            byte[] bytes = intToByteArray(aint);
+            for (byte aByte : bytes) {
+                result.append(String.format("%02x", aByte));
+            }
         }
         return result.toString();
     }
-    
-    public static String hex(byte[][] bytes){
+
+    public static String hex(byte[][] bytes) {
         StringBuilder result = new StringBuilder();
-        
-        for (int i=0; i<4; i++){
-            
-            for (int j=0; j<4; j++){
+
+        for (int i = 0; i < 4; i++) {
+
+            for (int j = 0; j < 4; j++) {
                 byte aByte = bytes[j][i];
                 result.append(String.format("%02x", aByte));
             }
         }
         return result.toString();
     }
-    
-    
 
     public static void main(String[] args) {
         // TODO code application logic here
@@ -61,19 +70,20 @@ public class AESProject {
         int subkeys[] = aes.createKeyExpansion(key);
 
         System.out.println(hex(subkeys));
+        System.out.println((hex(subkeys)).length());
 
         byte bytesMessage[][] = {{(byte) 0x21, (byte) 0x7c, (byte) 0x12, (byte) 0x55},
         {(byte) 0x21, (byte) 0x7c, (byte) 0x12, (byte) 0x55},
         {(byte) 0x21, (byte) 0x7c, (byte) 0x12, (byte) 0x55},
         {(byte) 0x21, (byte) 0x7c, (byte) 0x12, (byte) 0x55}
         };
-        
+
         System.out.println(hex(bytesMessage));
 
         ArrayList<byte[][]> a = aes.cipher(bytesMessage, subkeys);
 
         System.out.println(hex(a.get(10)));
-        
+
         ArrayList<byte[][]> b = aes.invCipher(a.get(10), subkeys);
         System.out.println(hex(b.get(10)));
 
