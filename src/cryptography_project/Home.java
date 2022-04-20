@@ -979,6 +979,14 @@ public class Home extends javax.swing.JFrame {
     private void proceedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proceedButtonActionPerformed
         // TODO add your handling code here:
         int round = Integer.parseInt(roundTextField.getText());
+        if (round < 0) {
+            roundTextField.setText("0");
+            round = 0;
+        }
+        if (round > this.totalRounds) {
+            roundTextField.setText(this.totalRounds + "");
+            round = this.totalRounds;
+        }
         displayCipher(round);
         displaySubKey(round);
         cipherWarningLabel.setText("    ");
