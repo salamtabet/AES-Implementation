@@ -8,6 +8,8 @@ package cryptography_project;
 import static cryptography_project.AESProject.hex;
 import static cryptography_project.AESProject.hexToByte;
 import static cryptography_project.AESProject.hexToByte2;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -23,6 +25,8 @@ public class Home extends javax.swing.JFrame {
     private String subkey;
     private int subkeys[];
     private final int subkeySize = 16 * 2;
+    private int keySize = 128;
+    private int totalRounds = 10;
 
     /**
      * Creates new form Home
@@ -44,12 +48,12 @@ public class Home extends javax.swing.JFrame {
             public void insertUpdate(DocumentEvent e) {
                 updateCounter();
             }
-            
+
             public void updateCounter() {
                 messageCounterLabel.setText(messageTextField.getText().trim().length() + " characters");
             }
         });
-        
+
         keyTextField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void changedUpdate(DocumentEvent e) {
@@ -65,12 +69,12 @@ public class Home extends javax.swing.JFrame {
             public void insertUpdate(DocumentEvent e) {
                 updateCounter();
             }
-            
+
             public void updateCounter() {
                 keyCounterLabel.setText(keyTextField.getText().trim().length() + " characters");
             }
         });
-        
+
         cipherTextField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void changedUpdate(DocumentEvent e) {
@@ -86,9 +90,24 @@ public class Home extends javax.swing.JFrame {
             public void insertUpdate(DocumentEvent e) {
                 updateCounter();
             }
-            
+
             public void updateCounter() {
                 cipherCounterLabel.setText(cipherTextField.getText().trim().length() + " characters");
+            }
+        });
+
+        keySizeCombo.addActionListener((ActionEvent e) -> {
+            keySize = Integer.parseInt((String) keySizeCombo.getSelectedItem());
+            switch (keySize) {
+                case 128:
+                    totalRounds = 10;
+                    break;
+                case 192:
+                    totalRounds = 12;
+                    break;
+                case 256:
+                    totalRounds = 14;
+                    break;
             }
         });
     }
@@ -779,7 +798,6 @@ public class Home extends javax.swing.JFrame {
 
     private int getKey(AESAlgorithm aes) {
         String inputKey = keyTextField.getText().trim();
-        int keySize = Integer.parseInt((String) keySizeCombo.getSelectedItem());
         if (inputKey.equals("")) {
             initializeKey();
             inputKey = keyTextField.getText().trim();
@@ -796,12 +814,11 @@ public class Home extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String keySize = (String) keySizeCombo.getSelectedItem();
-        AESAlgorithm aes = new AESAlgorithm(Integer.parseInt(keySize));
+        AESAlgorithm aes = new AESAlgorithm(keySize);
         if (getKey(aes) == 1) {
             return;
         }
-        displaySubKey(10);
+        displaySubKey(this.totalRounds);
         String message = messageTextField.getText().trim();
         if (message.equals("")) {
             initializeMessage();
@@ -813,9 +830,9 @@ public class Home extends javax.swing.JFrame {
         messageWarningLabel.setText("   ");
         byte bytes[][] = hexToByte(message);
         this.cipherArray = aes.cipher(bytes, subkeys);
-        displayCipher(10);
-        cipherTextField.setText(hex(this.cipherArray.get(10)));
-        roundTextField.setText("10");
+        displayCipher(this.totalRounds);
+        cipherTextField.setText(hex(this.cipherArray.get(this.totalRounds)));
+        roundTextField.setText(this.totalRounds + "");
         cipherWarningLabel.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -979,8 +996,7 @@ public class Home extends javax.swing.JFrame {
     }
 
     public void initializeKey() {
-        String keySize = (String) keySizeCombo.getSelectedItem();
-        AESAlgorithm aes = new AESAlgorithm(Integer.parseInt(keySize));
+        AESAlgorithm aes = new AESAlgorithm(keySize);
         byte key[] = aes.createKey();
         keyTextField.setText(hex(key));
         keyWarningLabel.setText("   ");
@@ -1005,8 +1021,7 @@ public class Home extends javax.swing.JFrame {
 
     private void decryptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_decryptButtonActionPerformed
         // TODO add your handling code here:
-        String keySize = (String) keySizeCombo.getSelectedItem();
-        AESAlgorithm aes = new AESAlgorithm(Integer.parseInt(keySize));
+        AESAlgorithm aes = new AESAlgorithm(keySize);
         keyWarningLabel.setText("   ");
         getKey(aes);
         String cipher = cipherTextField.getText().trim();
@@ -1020,8 +1035,8 @@ public class Home extends javax.swing.JFrame {
         }
         cipherWarningLabel.setText("    ");
         ArrayList<byte[][]> b = aes.invCipher(hexToByte(cipher), subkeys);
-        roundTextField.setText("10");
-        messageTextField.setText(hex(b.get(10)));
+        roundTextField.setText(this.totalRounds + "");
+        messageTextField.setText(hex(b.get(this.totalRounds)));
     }//GEN-LAST:event_decryptButtonActionPerformed
 
     /**
@@ -1062,7 +1077,6 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
