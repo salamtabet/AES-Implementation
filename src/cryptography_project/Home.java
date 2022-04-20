@@ -1031,7 +1031,9 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         AESAlgorithm aes = new AESAlgorithm(keySize);
         keyWarningLabel.setText("   ");
-        getKey(aes);
+        if (getKey(aes) == 1) {
+            return;
+        }
         String cipher = cipherTextField.getText().trim();
         messageWarningLabel.setText("   ");
         if (cipher.equals("")) {
