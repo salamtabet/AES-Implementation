@@ -6,6 +6,8 @@ package cryptography_project;
 
 import java.util.ArrayList;
 
+
+import static cryptography_project.AESProject.hex;
 /**
  *
  * @author lenovo
@@ -254,11 +256,59 @@ public class AESAlgorithm {
         rndGen.nextBytes(key);
         return key;
     }
-
+    
     public ArrayList<byte[][]> cipher(byte bytesMessage[][], int wordsKeyExpansion[]) {
         byte state[][] = new byte[4][Nb];
         ArrayList<byte[][]> arrayOfStates = new ArrayList<>();
         state = bytesMessage;
+        int n_of_col = bytesMessage[0].length;
+//        System.out.println(n_of_col+"  col");
+        int last_round_of_block =1;
+        state = addRoundKey(state, wordsKeyExpansion, 0);
+        
+        arrayOfStates.add(state);
+        
+        for (int round = 1; round <= Nr - 1; round++) {
+            
+            state = subBytes(state);
+            
+            state = shiftRows(state);
+           
+            state = mixColumns(state);
+            
+            state = addRoundKey(state, wordsKeyExpansion, round * Nb);
+            
+            arrayOfStates.add(state);
+        }
+        
+        state = subBytes(state);
+        
+        state = shiftRows(state);
+        
+        state = addRoundKey(state, wordsKeyExpansion, Nr * Nb);
+        
+        arrayOfStates.add(state);
+//        System.out.println(arrayOfStates.get(last_round_of_block*10)+"1 block");
+        return arrayOfStates;
+    }
+
+    public ArrayList<byte[][]> cipher_block(byte bytesMessage[][], int wordsKeyExpansion[]) {
+        byte state[][] = new byte[4][Nb];
+        ArrayList<byte[][]> arrayOfStates  = new ArrayList<>();
+        ArrayList<byte[][]> arrayOfStates1 = new ArrayList<>();
+        int n_of_col = bytesMessage[0].length;
+//        System.out.println(n_of_col+" col");
+        int last_round_of_block = 0;
+        for (int c=0; c<n_of_col ;c+=4 ){
+           last_round_of_block+=1;
+            for (int i = 0; i < 4; i++) {
+                int c_i = i+c;
+                for (int j = 0; j < 4; j++) {
+                    state[j][i] = bytesMessage[j][c_i];
+                    System.out.println(state[j][i]+" "+i+" "+j+" "+c_i);
+                }
+            }
+//        System.out.println(state[3][3]+"  c_i");
         
         state = addRoundKey(state, wordsKeyExpansion, 0);
         
@@ -284,7 +334,10 @@ public class AESAlgorithm {
         state = addRoundKey(state, wordsKeyExpansion, Nr * Nb);
         
         arrayOfStates.add(state);
+//        System.out.println(hex(arrayOfStates.get(last_round_of_block*10))+"");
         
+     } 
+        System.out.println(hex(arrayOfStates.get(1*10))+"");
         return arrayOfStates;
     }
     
