@@ -320,81 +320,129 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="S01">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="S01ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="S00">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="S00ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="S02">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="S02ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="S03">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="S03ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="S10">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="S10ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="S11">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="S11ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="S12">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="S12ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="S13">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="S13ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="S30">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="S30ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="S32">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="S32ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="S33">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="S33ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="S31">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="S31ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="S20">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="S20ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="S21">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="S21ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="S22">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="S22ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="S23">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="S23ActionPerformed"/>
           </Events>
@@ -416,81 +464,129 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="K00">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="K00ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="K01">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="K01ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="K02">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="K02ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="K03">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="K03ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="K13">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="K13ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="K12">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="K12ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="K11">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="K11ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="K10">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="K10ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="K20">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="K20ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="K21">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="K21ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="K22">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="K22ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="K23">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="K23ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="K33">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="K33ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="K32">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="K32ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="K31">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="K31ActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="K30">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="K30ActionPerformed"/>
           </Events>
@@ -527,6 +623,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="plaintextTextField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="plaintextTextFieldActionPerformed"/>
           </Events>

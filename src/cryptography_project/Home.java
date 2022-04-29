@@ -216,96 +216,112 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        S01.setEditable(false);
         S01.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 S01ActionPerformed(evt);
             }
         });
 
+        S00.setEditable(false);
         S00.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 S00ActionPerformed(evt);
             }
         });
 
+        S02.setEditable(false);
         S02.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 S02ActionPerformed(evt);
             }
         });
 
+        S03.setEditable(false);
         S03.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 S03ActionPerformed(evt);
             }
         });
 
+        S10.setEditable(false);
         S10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 S10ActionPerformed(evt);
             }
         });
 
+        S11.setEditable(false);
         S11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 S11ActionPerformed(evt);
             }
         });
 
+        S12.setEditable(false);
         S12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 S12ActionPerformed(evt);
             }
         });
 
+        S13.setEditable(false);
         S13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 S13ActionPerformed(evt);
             }
         });
 
+        S30.setEditable(false);
         S30.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 S30ActionPerformed(evt);
             }
         });
 
+        S32.setEditable(false);
         S32.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 S32ActionPerformed(evt);
             }
         });
 
+        S33.setEditable(false);
         S33.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 S33ActionPerformed(evt);
             }
         });
 
+        S31.setEditable(false);
         S31.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 S31ActionPerformed(evt);
             }
         });
 
+        S20.setEditable(false);
         S20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 S20ActionPerformed(evt);
             }
         });
 
+        S21.setEditable(false);
         S21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 S21ActionPerformed(evt);
             }
         });
 
+        S22.setEditable(false);
         S22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 S22ActionPerformed(evt);
             }
         });
 
+        S23.setEditable(false);
         S23.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 S23ActionPerformed(evt);
@@ -318,96 +334,112 @@ public class Home extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel7.setText("Sub Key");
 
+        K00.setEditable(false);
         K00.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 K00ActionPerformed(evt);
             }
         });
 
+        K01.setEditable(false);
         K01.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 K01ActionPerformed(evt);
             }
         });
 
+        K02.setEditable(false);
         K02.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 K02ActionPerformed(evt);
             }
         });
 
+        K03.setEditable(false);
         K03.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 K03ActionPerformed(evt);
             }
         });
 
+        K13.setEditable(false);
         K13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 K13ActionPerformed(evt);
             }
         });
 
+        K12.setEditable(false);
         K12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 K12ActionPerformed(evt);
             }
         });
 
+        K11.setEditable(false);
         K11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 K11ActionPerformed(evt);
             }
         });
 
+        K10.setEditable(false);
         K10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 K10ActionPerformed(evt);
             }
         });
 
+        K20.setEditable(false);
         K20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 K20ActionPerformed(evt);
             }
         });
 
+        K21.setEditable(false);
         K21.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 K21ActionPerformed(evt);
             }
         });
 
+        K22.setEditable(false);
         K22.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 K22ActionPerformed(evt);
             }
         });
 
+        K23.setEditable(false);
         K23.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 K23ActionPerformed(evt);
             }
         });
 
+        K33.setEditable(false);
         K33.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 K33ActionPerformed(evt);
             }
         });
 
+        K32.setEditable(false);
         K32.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 K32ActionPerformed(evt);
             }
         });
 
+        K31.setEditable(false);
         K31.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 K31ActionPerformed(evt);
             }
         });
 
+        K30.setEditable(false);
         K30.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 K30ActionPerformed(evt);
@@ -434,6 +466,7 @@ public class Home extends javax.swing.JFrame {
 
         cipherCounterLabel.setText(" 0 hex characters");
 
+        plaintextTextField.setEditable(false);
         plaintextTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 plaintextTextFieldActionPerformed(evt);
