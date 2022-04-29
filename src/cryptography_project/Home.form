@@ -255,13 +255,15 @@
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="K01" alignment="3" pref="35" max="32767" attributes="0"/>
-                              <Component id="K00" alignment="3" pref="35" max="32767" attributes="0"/>
-                              <Component id="K02" alignment="3" pref="35" max="32767" attributes="0"/>
-                              <Component id="K03" alignment="3" pref="35" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel2" alignment="1" min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="roundTextField" alignment="3" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="K01" alignment="3" pref="35" max="32767" attributes="0"/>
+                                  <Component id="K00" alignment="3" pref="35" max="32767" attributes="0"/>
+                                  <Component id="K02" alignment="3" pref="35" max="32767" attributes="0"/>
+                                  <Component id="K03" alignment="3" pref="35" max="32767" attributes="0"/>
+                                  <Component id="roundTextField" alignment="3" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -690,13 +692,10 @@
                                   <Component id="messageTextField" min="-2" pref="320" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="messageCounterLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="messageWarningLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="messageWarningLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>

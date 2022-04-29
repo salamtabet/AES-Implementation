@@ -637,13 +637,14 @@ public class Home extends javax.swing.JFrame {
                             .addComponent(S32, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                             .addComponent(S33, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(K01, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                            .addComponent(K00, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                            .addComponent(K02, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                            .addComponent(K03, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(roundTextField))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(K01, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                                .addComponent(K00, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                                .addComponent(K02, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                                .addComponent(K03, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                                .addComponent(roundTextField)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(K11, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
@@ -765,11 +766,9 @@ public class Home extends javax.swing.JFrame {
                             .addGroup(inputPanelLayout.createSequentialGroup()
                                 .addComponent(messageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(messageCounterLabel)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(inputPanelLayout.createSequentialGroup()
-                                .addComponent(messageWarningLabel)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addComponent(messageCounterLabel))
+                            .addComponent(messageWarningLabel))
+                        .addContainerGap())))
         );
         inputPanelLayout.setVerticalGroup(
             inputPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -869,26 +868,28 @@ public class Home extends javax.swing.JFrame {
     }
 
     public void displayCipher(int round) {
-        String cipher = hex(this.cipherArray.get(round));
-        S00.setText(cipher.charAt(0) + "" + cipher.charAt(1));
-        S10.setText(cipher.charAt(2) + "" + cipher.charAt(3));
-        S20.setText(cipher.charAt(4) + "" + cipher.charAt(5));
-        S30.setText(cipher.charAt(6) + "" + cipher.charAt(7));
+        if (this.cipherArray != null) {
+            String cipher = hex(this.cipherArray.get(round));
+            S00.setText(cipher.charAt(0) + "" + cipher.charAt(1));
+            S10.setText(cipher.charAt(2) + "" + cipher.charAt(3));
+            S20.setText(cipher.charAt(4) + "" + cipher.charAt(5));
+            S30.setText(cipher.charAt(6) + "" + cipher.charAt(7));
 
-        S01.setText(cipher.charAt(8) + "" + cipher.charAt(9));
-        S11.setText(cipher.charAt(10) + "" + cipher.charAt(11));
-        S21.setText(cipher.charAt(12) + "" + cipher.charAt(13));
-        S31.setText(cipher.charAt(14) + "" + cipher.charAt(15));
+            S01.setText(cipher.charAt(8) + "" + cipher.charAt(9));
+            S11.setText(cipher.charAt(10) + "" + cipher.charAt(11));
+            S21.setText(cipher.charAt(12) + "" + cipher.charAt(13));
+            S31.setText(cipher.charAt(14) + "" + cipher.charAt(15));
 
-        S02.setText(cipher.charAt(16) + "" + cipher.charAt(17));
-        S12.setText(cipher.charAt(18) + "" + cipher.charAt(19));
-        S22.setText(cipher.charAt(20) + "" + cipher.charAt(21));
-        S32.setText(cipher.charAt(22) + "" + cipher.charAt(23));
+            S02.setText(cipher.charAt(16) + "" + cipher.charAt(17));
+            S12.setText(cipher.charAt(18) + "" + cipher.charAt(19));
+            S22.setText(cipher.charAt(20) + "" + cipher.charAt(21));
+            S32.setText(cipher.charAt(22) + "" + cipher.charAt(23));
 
-        S03.setText(cipher.charAt(24) + "" + cipher.charAt(25));
-        S13.setText(cipher.charAt(26) + "" + cipher.charAt(27));
-        S23.setText(cipher.charAt(28) + "" + cipher.charAt(29));
-        S33.setText(cipher.charAt(30) + "" + cipher.charAt(31));
+            S03.setText(cipher.charAt(24) + "" + cipher.charAt(25));
+            S13.setText(cipher.charAt(26) + "" + cipher.charAt(27));
+            S23.setText(cipher.charAt(28) + "" + cipher.charAt(29));
+            S33.setText(cipher.charAt(30) + "" + cipher.charAt(31));
+        }
     }
 
     public void displaySubKey(int round) {
@@ -1133,6 +1134,8 @@ public class Home extends javax.swing.JFrame {
     public void initializeKey() {
         AESAlgorithm aes = new AESAlgorithm(keySize);
         byte key[] = aes.createKey();
+        this.subkeys = aes.createKeyExpansion(key);
+        this.subkey = hex(subkeys);
         keyTextField.setText(hex(key));
         keyWarningLabel.setText("   ");
     }
@@ -1147,6 +1150,8 @@ public class Home extends javax.swing.JFrame {
         initializeKey();
         this.ClearOutput();
         keyWarningLabel.setText("   ");
+        this.displaySubKey(this.totalRounds);
+        roundTextField.setText(this.totalRounds + "");
     }//GEN-LAST:event_randomButtonActionPerformed
 
     private void cipherTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cipherTextFieldActionPerformed
@@ -1160,6 +1165,7 @@ public class Home extends javax.swing.JFrame {
         if (getKey(aes) == 1) {
             return;
         }
+        displaySubKey(this.totalRounds);
         String cipher = cipherTextField.getText().trim();
         messageWarningLabel.setText("   ");
         if (cipher.equals("")) {
@@ -1177,6 +1183,8 @@ public class Home extends javax.swing.JFrame {
         roundTextField.setText(this.totalRounds + "");
         plaintextTextField.setVisible(true);
         decryptedLabel.setVisible(true);
+        this.cipherArray = b;
+        displayCipher(this.totalRounds);
         plaintextTextField.setText(hex(b.get(this.totalRounds)));
     }//GEN-LAST:event_decryptButtonActionPerformed
 
